@@ -1,4 +1,12 @@
 <?php
+/*
+ * Modified by Blue Blaze Associates, LLC
+ *
+ * Changes include:
+ *
+ * egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
+ *   See https://github.com/ultimatemember/ultimatemember/issues/7
+ */
 
 class UM_Enqueue {
 
@@ -75,6 +83,13 @@ class UM_Enqueue {
 
 		if ( isset($force_load) && $force_load == false ) return;
 		
+// BEGIN egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
+		// Determine path to WordPress based on the document root.
+		// This will be attached to AJAX calls so um
+		$wp_path = str_replace( $_SERVER['DOCUMENT_ROOT'], '', ABSPATH );
+		$wp_path = urlencode ( $wp_path );
+// END egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
+
 		// enqueue styles
 		if ( um_get_option('disable_minify') ) {
 			
@@ -82,8 +97,12 @@ class UM_Enqueue {
 			
 			wp_localize_script( 'um_scripts', 'um_scripts', array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'fileupload' => um_url . 'core/lib/upload/um-file-upload.php',
-					'imageupload' => um_url . 'core/lib/upload/um-image-upload.php'
+// BEGIN egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
+//					'fileupload' => um_url . 'core/lib/upload/um-file-upload.php',
+//					'imageupload' => um_url . 'core/lib/upload/um-image-upload.php'
+					'fileupload' => um_url . 'core/lib/upload/um-file-upload.php?wp_path=' . $wp_path,
+					'imageupload' => um_url . 'core/lib/upload/um-image-upload.php?wp_path=' . $wp_path
+// END egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
 			) );
 			
 		} else {
@@ -93,8 +112,12 @@ class UM_Enqueue {
 			
 			wp_localize_script( 'um_minified', 'um_scripts', array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'fileupload' => um_url . 'core/lib/upload/um-file-upload.php',
-					'imageupload' => um_url . 'core/lib/upload/um-image-upload.php'
+// BEGIN egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
+//					'fileupload' => um_url . 'core/lib/upload/um-file-upload.php',
+//					'imageupload' => um_url . 'core/lib/upload/um-image-upload.php'
+					'fileupload' => um_url . 'core/lib/upload/um-file-upload.php?wp_path=' . $wp_path,
+					'imageupload' => um_url . 'core/lib/upload/um-image-upload.php?wp_path=' . $wp_path
+// END egifford 2015_08_21: Patch AJAX issue with um-file-upload and um-image-upload.php.
 			) );
 		
 			wp_register_style('um_minified', um_url . 'assets/css/um.min.css', '', ultimatemember_version, 'all' );
