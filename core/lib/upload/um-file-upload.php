@@ -58,12 +58,12 @@ $ret = array();
 if(isset($_FILES[$id]['name'])) {
 
     if(!is_array($_FILES[$id]['name'])) {
-	
+
 		$temp = $_FILES[$id]["tmp_name"];
 		$file = $_FILES[$id]["name"];
 		$file = str_replace(array('#','(',')','+','&','?','%','{','}','[',']','=',',',';','>','<','~',':','$',' '),'',$file);
 		$extension = pathinfo($file, PATHINFO_EXTENSION);
-		
+
 		$error = $ultimatemember->files->check_file_upload( $temp, $extension, $id );
 		if ( $error ){
 			$ret['error'] = $error;
@@ -75,7 +75,7 @@ if(isset($_FILES[$id]['name'])) {
 		}
 
     }
-	
+
 } else {
 	$ret['error'] = __('A theme or plugin compatibility issue','ultimatemember');
 }
