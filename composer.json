@@ -4,6 +4,17 @@
   "type" : "wordpress-plugin",
   "homepage" : "http://ultimatemember.com/",
   "license" : "GPL-2.0+",
+  "authors" : [{
+    "name" : "Ultimate Member",
+    "homepage" : "http://ultimatemember.com/",
+    "role" : "Author/Creator"
+  }, {
+    "name" : "Ed Gifford",
+    "homepage" : "http://www.blueblazeassociates.com",
+    "role" : "Composer-fier",
+    "email" : "egifford@blueblazeassociates.com"
+    }
+  ],
   "keywords" : [
     "access-control", "author", "author profile", "authors", "comments", "communities", "community",
     "conditional fields", "conditional logic", "conditional menus", "content protection",
