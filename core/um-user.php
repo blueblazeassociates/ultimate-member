@@ -539,6 +539,9 @@ class UM_User {
 	function deactivate(){
 		global $ultimatemember;
 		$this->set_status('inactive');
+		
+		do_action('um_after_user_is_inactive', um_user('ID') );
+		
 		$ultimatemember->mail->send( um_user('user_email'), 'inactive_email' );
 	}
 	
@@ -619,34 +622,10 @@ class UM_User {
 		}
 	}
 	
-	/**
-	 * @function get_role_name()
-	 *
-	 * @description This method is similar to $ultimatemember->user->get_role() but returns the role name instead of slug.
-	 *
-	 * @usage <?php $ultimatemember->user->get_role_name(); ?>
-	 *
-	 * @returns The user role's name.
-	 *
-	 * @example Do something if the user's role is Paid Customer
-
-		<?php
-		
-			um_fetch_user( 12 );
-			
-			if ( $ultimatemember->user->get_role_name() == 'Paid Customer' ) {
-				// Show this to paid customers
-			} else {
-				// You are a free member
-			}
-			
-		?>
-
-	 *
-	 *
-	 */
-	function get_role_name() {
-		return $this->profile['role_name'];
+	function get_role_name( $slug ) {
+		global $wpdb;
+		$post_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'um_role' AND post_name = '$slug'");
+		return get_the_title( $post_id );
 	}
 	
 	/***

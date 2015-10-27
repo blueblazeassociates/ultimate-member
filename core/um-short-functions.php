@@ -1142,36 +1142,7 @@ function um_fetch_user( $user_id ) {
 			return $uri;
 		return '';
 	}
-	
-/**
- * @function um_user()
- *
- * @description This function can be used to get user's data. This can be user profile data or user permissions.
- *
- * @usage <?php echo um_user( $data ); ?>
- *
- * @param $data (string) (required) The field or data you want to retrieve for user.
- * @param $attrs (string) (optional) Additional attribute for profile data that may need extra configuration.
- *
- * @returns Returns the user data requested If found. A user must be previously set using um_fetch_user() to 
-	properly retrieve user data.
- *
- * @example The example below can retrieve the user's display name
 
-	<?php
-	
-		$display_name = um_user('display_name');
-		echo $display_name; // prints the user's display name
-		
-	?>
-
- *
- * @example The example below can retrieve user's community role
- 
-	<?php echo um_user('role_name'); // example: Member or Admin ?>
- 
- *
- */
 function um_user( $data, $attrs = null ) {
 	
 	global $ultimatemember;
@@ -1279,7 +1250,7 @@ function um_user( $data, $attrs = null ) {
 				
 		case 'role_select':
 		case 'role_radio':
-			return um_user('role_name');
+			return $ultimatemember->user->get_role_name( um_user('role') );
 			break;
 				
 		case 'submitted':
