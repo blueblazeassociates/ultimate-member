@@ -300,30 +300,7 @@ function um_user_ip() {
 		return $value;
 	}
 	
-/**
- * @function um_profile_id()
- *
- * @description This function returns the user ID for current profile.
- *
- * @usage <?php $user_id = um_profile_id(); ?>
- *
- * @returns Returns the user ID of profile if found, or current user ID if user is logged in. Also returns blank 
-   if no user ID is set.
- *
- * @example The example below will retrieve the user ID when viewing someone profile.
 
-	<?php
-	
-		$user_id = um_profile_id();
-		if ( $user_id == 1 ) {
-			echo 'This is administrator profile.';
-		}
-		
-	?>
-
- *
- *
- */
 function um_profile_id() {
 	
 	if ( um_get_requested_user() ) {
@@ -331,7 +308,7 @@ function um_profile_id() {
 	} else if ( is_user_logged_in() && get_current_user_id() ) {
 		return get_current_user_id();
 	}
-		
+
 	return 0;
 }
 

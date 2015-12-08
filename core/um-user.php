@@ -303,7 +303,16 @@ class UM_User {
 			unset( $submitted['user_password'] );
 		}
 		
+		if ( isset( $submitted['confirm_user_password'] ) ) {
+			unset( $submitted['confirm_user_password'] );
+		}
+
+		do_action('um_before_save_registration_details', $this->id, $submitted );
+		
 		update_user_meta( $this->id, 'submitted', $submitted );
+		
+		do_action('um_after_save_registration_details', $this->id, $submitted );
+		
 	}
 	
 	/***
@@ -313,32 +322,6 @@ class UM_User {
 		update_user_meta( $this->id, '_um_cool_but_hard_to_guess_plain_pw', $plain );
 	}
 	
-	/**
-	 * @function set_role()
-	 *
-	 * @description This method assign a role to a user. The user must be already set before processing this API method.
-	 *
-	 * @usage <?php $ultimatemember->user->set_role( $role ); ?>
-	 *
-	 * @param $role (string) (required) The user role slug you want to assign to user.
-	 *
-	 * @returns Changes user role if the given user role was a valid plugin role.
-	 *
-	 * @example Set a user and give them the role community-member
-
-		<?php
-		
-		// Sets a user. Can accept numeric user ID
-		um_fetch_user( 14 );
-		
-		// Change user role
-		$ultimatemember->user->set_role('community-member');
-		
-		?>
-
-	 *
-	 *
-	 */
 	function set_role( $role ){
 		
 		do_action('um_when_role_is_set', um_user('ID') );
