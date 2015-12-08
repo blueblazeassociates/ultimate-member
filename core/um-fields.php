@@ -581,6 +581,7 @@ class UM_Fields {
 		
 		if ( isset( $array['conditions'] ) && is_array( $array['conditions'] ) && !$this->viewing ) {
 			$array['conditional'] = '';
+
 			foreach( $array['conditions'] as $cond_id => $cond ) {
 				$array['conditional'] .= ' data-cond-'.$cond_id.'-action="'. $cond[0] . '" data-cond-'.$cond_id.'-field="'. $cond[1] . '" data-cond-'.$cond_id.'-operator="'. $cond[2] . '" data-cond-'.$cond_id.'-value="'. $cond[3] . '"';
 			}
@@ -918,6 +919,8 @@ class UM_Fields {
 				return;
 			}
 		}
+
+		$type = apply_filters("um_hook_for_field_{$type}", $type );
 
 		/* Begin by field type */
 		switch( $type ) {
@@ -1459,6 +1462,8 @@ class UM_Fields {
 						if (!isset($options)){
 							$options = $ultimatemember->builtin->get ( 'countries' );
 						}
+
+
 						
 						// role field
 						if ( $form_key == 'role' ) {
@@ -1475,6 +1480,7 @@ class UM_Fields {
 		
 							$options = $new_roles;
 						}
+						
 						
 						// add an empty option!
 						$output .= '<option value=""></option>';
@@ -1515,6 +1521,9 @@ class UM_Fields {
 				
 			/* Multi-Select dropdown */
 			case 'multiselect':
+			
+				$max_selections = ( isset( $max_selections ) ) ? absint( $max_selections ) : 0;
+				
 				$output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
 
 						if ( isset( $data['allowclear'] ) && $data['allowclear'] == 0 ) {
@@ -1529,15 +1538,17 @@ class UM_Fields {
 
 						$output .= '<div class="um-field-area">';
 						
-						$output .= '<select multiple="multiple" name="'.$key.'[]" id="'.$key.'" data-validate="'.$validate.'" data-key="'.$key.'" class="'.$this->get_class($key, $data, $class).'" style="width: 100%" data-placeholder="'.$placeholder.'">';
+						$output .= '<select multiple="multiple" name="'.$key.'[]" id="'.$key.'" data-maxsize="'. $max_selections . '" data-validate="'.$validate.'" data-key="'.$key.'" class="'.$this->get_class($key, $data, $class).'" style="width: 100%" data-placeholder="'.$placeholder.'">';
 						
 						if ( isset($options) && $options == 'builtin'){
 							$options = $ultimatemember->builtin->get ( $filter );
 						}
-						
+
 						if (!isset($options)){
 							$options = $ultimatemember->builtin->get ( 'countries' );
 						}
+
+						$options = apply_filters("um_multiselect_options_{$data['type']}", $options, $data );
 						
 						// add an empty option!
 						$output .= '<option value=""></option>';
@@ -1547,8 +1558,14 @@ class UM_Fields {
 						
 							$v = rtrim($v);
 							
-							$output .= '<option value="'.$v.'" ';
-							if ( $this->is_selected($key, $v, $data) ) { 
+							if ( is_string( $k ) ) {
+								$opt_value = $k;
+							} else {
+								$opt_value = $v;
+							}
+							
+							$output .= '<option value="'.$opt_value.'" ';
+							if ( $this->is_selected($key, $opt_value, $data) ) { 
 								$output.= 'selected';
 							}
 							$output .= '>'.$v.'</option>';

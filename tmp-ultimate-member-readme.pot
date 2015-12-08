@@ -294,6 +294,10 @@ msgid "Greek"
 msgstr ""
 
 #. Found in description list item.
+msgid "Simplified Chinese"
+msgstr ""
+
+#. Found in description list item.
 msgid "Russian - Русский"
 msgstr ""
 
@@ -347,6 +351,26 @@ msgstr ""
 
 #. Found in installation list item.
 msgid "For more details, please visit the official <a href=\"http://docs.ultimatemember.com/\">Documentation</a> page."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "New: added Simplified Chinese language support"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Tweak: added many new filters (for developers)"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed: Display name update in profile"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed: Photo upload unique IDs"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed: Remove duplicated method um_convert_tags"
 msgstr ""
 
 #. Found in changelog list item.
