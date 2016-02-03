@@ -24,5 +24,8 @@
     "profiles", "registration", "Restrict content", "restriction", "role creation", "role menus",
     "search filters", "sign in", "sign up", "social network", "star ratings", "Toolbar", "user",
     "user profile", "User profiles", "user roles", "user-fields", "users"
-  ]
+  ],
+  "replace": {
+    "wpackagist-plugin/ultimate-member" : "*"
+  }
 }
