@@ -7,7 +7,7 @@ Tags: access control, author, authors, author profile, comments, community, comm
 Requires at least: 4.1
 Tested up to: 4.4
 
-Stable Tag: 1.3.35
+Stable Tag: 1.3.36
 
 License: GNU Version 2 or Any Later Version
 
@@ -44,6 +44,7 @@ Read about all of the plugin's features at [Ultimate Member](https://ultimatemem
 
 Ultimate Member has a range of extensions that allow you to extend the power of the plugin
 
+* [User Tags](https://ultimatemember.com/extensions/user-tags/) - Lets you add a user tag system to your website
 * [Social Activity](https://ultimatemember.com/extensions/social-activity/) - Let users create public wall posts & see the activity of other users
 * [WooCommerce](https://ultimatemember.com/extensions/woocommerce/) - Allow you to integrate WooCommerce with Ultimate Member
 * [Private Messages](https://ultimatemember.com/extensions/private-messages/) - Add a private messaging system to your site & allow users to message each other
@@ -145,6 +146,30 @@ The plugin works with popular caching plugins by automatically excluding Ultimat
 16. Screenshot 16
 
 == Changelog ==
+
+= 1.3.36: January 6, 2016 =
+
+* New: added in-page content restriction to protect content for logged-in or logged out users
+* New: added community role field to user creation in backend
+* New: added community role field to user editing in backend
+* New: show specific users in members directory
+* New: added a new field type: Number
+* New: added filter hooks to specific profile fields
+* New: added custom admin bulk actions support
+* New: added usermeta support to content locking feature in-page
+* Tweak: several tweaks in core to be more WordPress native
+* Tweak: added fallback for page setup selections
+* Tweak: automatic clickable links in profile header bio
+* Tweak: trim long field labels in backend fields modal
+* Fixed: profile page SEO title
+* Fixed: multi-site redirect support
+* Fixed: activation hash comparison
+* Fixed: page setup fallback field
+* Fixed: prevents php warnings and notices
+* Fixed: WP-CLI and cronjobs issues
+* Fixed: category posts restriction and redirection
+* Fixed: category access settings
+* Fixed: activation link
 
 = 1.3.35: December 15, 2015 =
 

@@ -63,7 +63,12 @@
 	add_action('um_access_category_settings','um_access_category_settings');
 	function um_access_category_settings() {
 		global $post, $wp_query, $ultimatemember;
-		if ( is_single() || get_the_category() && ! is_front_page() && ! is_home() ) {
+
+		if( is_front_page() || is_home() ){
+			return;
+		}
+		
+		if ( is_single() || get_the_category() ) {
 		
 
 			$categories = get_the_category();
@@ -82,7 +87,7 @@
 						case 1:
 							
 							if ( is_user_logged_in() )
-								$ultimatemember->access->redirect_handler = ( isset( $opt['_um_redirect'] ) ) ? $opt['_um_redirect'] : home_url();
+								$ultimatemember->access->redirect_handler = ( isset( $opt['_um_redirect'] ) ) ? $opt['_um_redirect'] : site_url();
 							
 							if ( !is_user_logged_in() )
 								$ultimatemember->access->allow_access = true;
@@ -98,7 +103,7 @@
 								if ( !in_array( um_user('role'), $opt['_um_roles'] ) ) {
 									
 									if ( is_user_logged_in() )
-										$ultimatemember->access->redirect_handler = ( isset( $opt['_um_redirect'] ) ) ? $opt['_um_redirect'] : home_url();
+										$ultimatemember->access->redirect_handler = ( isset( $opt['_um_redirect'] ) ) ? $opt['_um_redirect'] : site_url();
 									
 									if ( !is_user_logged_in() )
 										$ultimatemember->access->redirect_handler =  um_get_core_page('login');
@@ -106,6 +111,11 @@
 							}
 							
 					}
+				}
+
+				if( is_archive() ){
+					$ultimatemember->access->allow_access = true;
+					$ultimatemember->access->redirect_handler = false; // open to everyone
 				}
 			}
 		}
@@ -123,7 +133,7 @@
 			
 			$post_id = get_option('woocommerce_shop_page_id');
 
-		} else if ( is_archive() || is_front_page() || is_search() || in_the_loop() ) {
+		} else if ( is_archive() || is_front_page() || is_home() || is_search() || in_the_loop() ) {
 			
 			return;
 
@@ -184,7 +194,7 @@
 					if ( !in_array( um_user('role'), unserialize( $access_roles ) ) ) {
 						if ( !$access_redirect ) {
 							if ( is_user_logged_in() ) {
-								$access_redirect = home_url();
+								$access_redirect = site_url();
 							} else {
 								$access_redirect = um_get_core_page('login');
 							}

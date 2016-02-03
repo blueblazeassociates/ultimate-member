@@ -81,12 +81,6 @@ jQuery(document).ready(function() {
 		minimumResultsForSearch: 10
 	});
 	
-	jQuery("body.um-admin .actions select:not('.umaf-selectjs')").select2({
-		allowClear: false,
-		minimumResultsForSearch: 10,
-		width: '160px'
-	});
-	
 	/**
 		Tooltips
 	**/
@@ -106,6 +100,11 @@ jQuery(document).ready(function() {
 		if (jQuery(this).val() == jQuery(this).data('cond1') ){
 			jQuery('.' + jQuery(this).data('cond1-show') ).show();
 			jQuery('.' + jQuery(this).data('cond1-hide') ).hide();
+			
+			if ( jQuery(this).data('cond1-show') == '_roles' ) {
+				return false;
+			}
+			
 		} else {
 			jQuery('.' + jQuery(this).data('cond1-show') ).hide();
 			jQuery('.' + jQuery(this).data('cond1-hide') ).show();
@@ -116,6 +115,11 @@ jQuery(document).ready(function() {
 		if (jQuery(this).val() == jQuery(this).data('cond2') ){
 			jQuery('.' + jQuery(this).data('cond2-show') ).show();
 			jQuery('.' + jQuery(this).data('cond2-hide') ).hide();
+			
+			if ( jQuery(this).data('cond2-show') == '_roles' ) {
+				return false;
+			}
+			
 		} else {
 			jQuery('.' + jQuery(this).data('cond2-show') ).hide();
 			jQuery('.' + jQuery(this).data('cond2-hide') ).show();
